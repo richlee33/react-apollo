@@ -12,12 +12,14 @@ Forked to use postgres DB instead of sqlite.
 # CREATE DATABASE <database_name>;
 # CREATE USER <test_user> WITH PASSWORD <password>;
 # GRANT ALL PRIVILEGES ON DATABASE <database_name> TO <test_user>;
+```
 
 
 ### 2. Create a new environment variable for the postgres connection string
 
 ```sh
 DATABASE_URL_NEWS=postgresql://<test_user>:<password>@localhost:5432/<database_name>
+```
 
 
 ### 3. Clone repository
