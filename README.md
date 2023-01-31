@@ -2,7 +2,7 @@
 
 This is the sample project that belongs to the [React & Apollo Tutorial](https://www.howtographql.com/react-apollo/0-introduction/) on How to GraphQL.   
 
-Forked to use postgres DB instead of sqlite.   
+__Forked to use postgres DB instead of sqlite and add docker to run in containers.__
 
 ## How to use
 
@@ -53,3 +53,18 @@ yarn start
 ```
 
 You can now open your browser and use the app on [http://localhost:3000](http://localhost:3000).
+
+## How to use with Docker containers
+
+### 1. Create local .env file for Postgres connection string
+```sh
+echo 'DATABASE_URL_NEWS="postgresql://testuser:testpw@db:5432/newsdb"' > ./server/.env
+```
+
+### 2. Run docker compose
+```sh
+docker compose up
+```
+
+Open the app on [http://localhost:3000](http://localhost:3000)
+Open GraphQL Playground on [http://localhost:4000](http://locahost:4000)

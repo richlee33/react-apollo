@@ -1,0 +1,35 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:14.1-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=testuser
+      - POSTGRES_PASSWORD=testpw
+      - POSTGRES_DB=newsdb
+    ports:
+      # Standard port for PostgreSQL databases
+      - "5432:5432"
+#    volumes:
+      # - ./database-seed.sql:/docker-entrypoint-initdb.d/database-seed.sql
+
+  app:
+    build: .
+    environment:
+      - "DATABASE_URL_NEWS=postgresql://testuser:testpw@db:5432/newsdb"
+    depends_on:
+      - db
+    ports:
+      - "4000:4000"
+      - "3000:3000"
+
+  # PostgreSQL pgAdmin panel accessible at http://localhost:16543/
+  pgadmin-compose:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "placeholder@example.com"
+      PGADMIN_DEFAULT_PASSWORD: "fakepassword123!"
+    ports:
+      - "16543:80"
+    depends_on:
+      - db
