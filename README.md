@@ -2,7 +2,7 @@
 
 This is the sample project that belongs to the [React & Apollo Tutorial](https://www.howtographql.com/react-apollo/0-introduction/) on How to GraphQL.   
 
-Forked to use postgres DB instead of sqlite.   
+__Forked to use postgres DB instead of sqlite and add docker to run in containers.__
 
 ## How to use
 
