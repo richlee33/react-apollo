@@ -1,6 +1,5 @@
 # the base image from which the app is built upon
-#FROM node:16.19-alpine3.16
-FROM node:16.19
+FROM node:16.19-alpine3.16
 # Runs the mkdir command to create /usr/src/app inside docker container
 RUN mkdir -p /usr/src/app  
 # Sets the work directory to /usr/src/app 
