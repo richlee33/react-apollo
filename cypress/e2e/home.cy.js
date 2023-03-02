@@ -11,3 +11,4 @@ describe("home page no login", () => {
     cy.get('.ml1.no-underline.black').eq(3).contains("login")
   }) 
 })
+
