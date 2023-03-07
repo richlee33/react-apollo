@@ -7,7 +7,7 @@ on:
     branches: [ "master" ]
 
 env:
-  DATABASE_URL_NEWS: "postgresql://testuser:testpw@db:5432/newsdb"
+  DATABASE_URL_NEWS: "postgresql://testuser:testpw@localhost:5432/newsdb"
   
 jobs:
 
@@ -21,9 +21,9 @@ jobs:
         # Docker Hub image
         image: postgres
         env:
-          POSTGRES_USER=testuser
-          POSTGRES_PASSWORD=testpw
-          POSTGRES_DB=newsdb
+          POSTGRES_USER: testuser
+          POSTGRES_PASSWORD: testpw
+          POSTGRES_DB: newsdb
         # Set health checks to wait until postgres has started
         options: >-
           --health-cmd pg_isready
@@ -35,7 +35,7 @@ jobs:
           - 5432:5432
         volumes:
           # copy sql script to create tables
-          - ./sql/create_tables.sql:/docker-entrypoint-initdb.d/create_tables.sql
+          - ${{ github.workspace }}/sql:/docker-entrypoint-initdb.d
           
     steps:
     - uses: actions/checkout@v3
@@ -46,7 +46,19 @@ jobs:
       uses: cypress-io/github-action@v5
       with:
         start: |
-          cd server; yarn dev
+          yarn --cwd ./server/ dev
           yarn start
-        wait-on: "http://localhost:3000"
+        wait-on: 'http://localhost:4000, http://localhost:3000'
+    - name: Save artifacts
+      uses: actions/upload-artifact@v3
+      if: failure()
+      with:
+        name: cypress-screenshots
+        path: cypress/screenshots
+    # Test run video was always captured, so this action uses "always()" condition
+    - uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: cypress-videos
+        path: cypress/videos
 
