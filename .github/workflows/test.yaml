@@ -35,7 +35,7 @@ jobs:
           - 5432:5432
         volumes:
           # copy sql script to create tables
-          - ${GITHUB_WORKSPACE}/sql:/docker-entrypoint-initdb.d
+          - $GITHUB_WORKSPACE/sql:/docker-entrypoint-initdb.d
           
     steps:
     - uses: actions/checkout@v3
