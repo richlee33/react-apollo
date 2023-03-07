@@ -46,7 +46,7 @@ jobs:
       uses: cypress-io/github-action@v5
       with:
         start: |
-          cd server; yarn dev
+          bash -c "cd server; yarn dev"
           yarn start
         wait-on: "http://localhost:3000"
 
