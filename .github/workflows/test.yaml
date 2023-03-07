@@ -49,7 +49,7 @@ jobs:
           yarn --cwd ./server/ dev
           yarn start
         wait-on: 'http://localhost:4000, http://localhost:3000'
-    - name:: Save artifacts
+    - name: Save artifacts
       uses: actions/upload-artifact@v3
       if: failure()
       with:
