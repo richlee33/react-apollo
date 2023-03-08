@@ -30,16 +30,19 @@ jobs:
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
+          --name myapp_db
         ports:
           # Maps tcp port 5432 on service container to the host
           - 5432:5432
-        volumes:
-          # copy sql script to create tables
-          - ${{ github.workspace }}/sql:/docker-entrypoint-initdb.d
           
     steps:
     - uses: actions/checkout@v3
-    - name: Init db
+    - name: Copy sql file to db container
+      working-directory: ./sql
+      run: docker cp create_tables.sql myapp_db:/create_tables.sql
+    - name: Populate db
+      run: docker exec myapp_db psql -U testuser -d newsdb -h localhost -p 5432 -f create_tables.sql
+    - name: Sync db with backend
       working-directory: ./server
       run: npx prisma db push
     - name: Cypress run

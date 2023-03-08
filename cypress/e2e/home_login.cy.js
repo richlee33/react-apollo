@@ -1,7 +1,7 @@
 describe("home page login", () => {
 
   beforeEach(() => {
-    cy.login_graphql('user1', 'user1')
+    cy.login_web('user1', 'user1')
     cy.visit("http://localhost:3000")
   })
 
