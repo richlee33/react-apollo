@@ -41,7 +41,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Populate db
-      run: docker exec myapp_db bash -c psql -U testuser -d newsdb -h localhost -p 5432 -f /docker-entrypoint-initdb.d/create_tables.sql
+      run: docker exec myapp_db psql -U testuser -d newsdb -h localhost -p 5432 -f /docker-entrypoint-initdb.d/create_tables.sql
     - name: Sync db with backend
       working-directory: ./server
       run: npx prisma db push
